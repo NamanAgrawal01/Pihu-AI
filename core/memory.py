@@ -1,51 +1,41 @@
-import json
-import os
-
-MEMORY_FILE = "data/memory.json"
-
-
-def load_memory():
-    if not os.path.exists(MEMORY_FILE):
-        return {}
-
-    with open(MEMORY_FILE, "r", encoding="utf-8") as f:
-        return json.load(f)
-
-
-def save_memory(memory):
-    with open(MEMORY_FILE, "w", encoding="utf-8") as f:
-        json.dump(memory, f, indent=4)
+from database.database import (
+    save_memory,
+    get_memory,
+    save_chat,
+    connect
+)
 
 
 def remember(key, value):
-    memory = load_memory()
-    memory[key] = value
-    save_memory(memory)
+    save_memory(key, value)
 
 
 def recall(key):
-    memory = load_memory()
-    return memory.get(key)
+    return get_memory(key)
 
 
 def remember_conversation(user, ai):
-    memory = load_memory()
+    save_chat(user, ai)
+def get_history(username): # Ab username argument mangenge
+    conn = connect()
+    cur = conn.cursor()
 
-    history = memory.get("history", [])
+    # Sirf us user ka data fetch karenge
+    cur.execute("""
+        SELECT user, assistant
+        FROM chat_history
+        WHERE username = ?
+        ORDER BY id DESC
+        LIMIT 20
+    """, (username,)) # yahan username pass karenge
 
-    history.append({
-        "user": user,
-        "assistant": ai
-    })
+    rows = cur.fetchall()
+    conn.close()
 
-    # Sirf last 20 conversations rakho
-    history = history[-20:]
-
-    memory["history"] = history
-
-    save_memory(memory)
-
-
-def get_history():
-    memory = load_memory()
-    return memory.get("history", [])
+    history = []
+    for user, assistant in reversed(rows):
+        history.append({
+            "user": user,
+            "assistant": assistant
+        })
+    return history

@@ -41,3 +41,5 @@ def ask_ai(message):
     result = response.json()
 
     return result["choices"][0]["message"]["content"]
+if __name__ == "__main__":
+    print(ask_ai("Hello"))

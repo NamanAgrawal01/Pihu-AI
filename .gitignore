@@ -1,5 +1,44 @@
+# Python
 .venv/
 __pycache__/
-temp/
-*.mp3
+*.pyc
+*.pyo
+*.pyd
+
+# Environment / secrets
 .env
+*.env
+
+# Audio temp files
+*.mp3
+
+# Temp directories
+temp/
+sandbox/
+
+# Build artifacts
+build/
+dist/
+*.spec
+
+# Database files
+*.db
+
+# Memory / data files (runtime generated)
+pihu_memory.json
+pihu_ai.db
+data/pihu_ai.db
+data/pihu_memory.json
+data/pihu_memory_backup.json
+data/unanswered.txt
+
+# Logs
+logs/
+*.log
+camera_error.txt
+
+# IDE / OS
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store

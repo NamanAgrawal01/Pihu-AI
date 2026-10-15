@@ -1,34 +1,17 @@
-import webbrowser
-import subprocess
 import os
-from datetime import datetime
+import webbrowser
 
-
-def execute(command):
-
-    command = command.lower()
-
-    if "youtube" in command:
-        webbrowser.open("https://youtube.com")
-        return "Opening YouTube."
-
-    elif "google" in command:
-        webbrowser.open("https://google.com")
-        return "Opening Google."
-
-    elif "notepad" in command:
-        os.system("notepad")
-        return "Opening Notepad."
-
-    elif "calculator" in command:
-        subprocess.Popen("calc.exe")
-        return "Opening Calculator."
-
-    elif "explorer" in command:
-        os.system("explorer")
-        return "Opening File Explorer."
-
-    elif "time" in command:
-        return datetime.now().strftime("Current time is %I:%M %p")
-
-    return None
+def handle_command(command):
+    c = command.lower()
+    
+    # YouTube ke liye keywords
+    if any(word in c for word in ["youtube", "yutube", "युटुब", "video"]):
+        webbrowser.open("https://www.youtube.com")
+        return "Theek hai Hemant, YouTube khol rahi hoon."
+    
+    # Google ke liye keywords
+    if any(word in c for word in ["google", "search", "ढूंढो"]):
+        webbrowser.open("https://www.google.com")
+        return "Google khul gaya!"
+        
+    return None # Agar command nahi mili, toh AI (conversation) handle karegi
