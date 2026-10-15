@@ -7,3 +7,8 @@ Pillow
 google-generativeai
 python-dotenv
 requests
+groq
+psutil
+pyautogui
+beautifulsoup4
+pyttsx3
